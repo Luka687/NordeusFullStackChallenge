@@ -22,12 +22,30 @@ public partial class GameScene : Node2D
 	
 	private void HttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body){
 		if (responseCode == 200){
-			GD.Print("Request successful!");
+			//GD.Print("Request successful!");
 			GD.Print("Response Body: " + System.Text.Encoding.UTF8.GetString(body));
+			createMap(System.Text.Encoding.UTF8.GetString(body), 30, 30);
 		}
 		
 		else{
-			GD.Print("Request failed. Response code: " + responseCode);
+			//GD.Print("Request failed. Response code: " + responseCode);
 		}
+	}
+	
+	private int[,] createMap(string stringMap, int rows, int columns){
+		int [,] map = new int[rows, columns];
+		string [] rowValues = stringMap.Split('\n');
+		
+		(int, int) index = (0,0);
+		foreach (string s in rowValues){
+			index.Item2 = 0;
+			foreach(string c in s.Split(' ')){
+				//GD.Print(index);
+				map[index.Item1,index.Item2] = int.Parse(c);
+				index.Item2+=1;
+			}
+			index.Item1+= 1;
+		}
+		return map;
 	}
 }
