@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://hpt5dbjv3v54"]
+[gd_scene load_steps=7 format=4 uid="uid://hpt5dbjv3v54"]
 
 [ext_resource type="Script" path="res://scripts/GameScene.cs" id="1_eivpb"]
 [ext_resource type="Texture2D" uid="uid://1k6h5gnr2215" path="res://assets/tileset.png" id="2_synfj"]
+[ext_resource type="Texture2D" uid="uid://c2jv6l2cmngxp" path="res://assets/debug_tileset.png" id="3_vt121"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v6cbu"]
 texture = ExtResource("2_synfj")
@@ -13,9 +14,20 @@ texture_region_size = Vector2i(64, 64)
 4:0/0 = 0
 5:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tjk11"]
+texture = ExtResource("3_vt121")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_cesry"]
 tile_size = Vector2i(64, 64)
 sources/2 = SubResource("TileSetAtlasSource_v6cbu")
+sources/3 = SubResource("TileSetAtlasSource_tjk11")
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_eivpb")
