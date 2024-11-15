@@ -10,6 +10,15 @@ public partial class GameScene : Node2D
 	private Dictionary<int, List<Vector2>> islands = new Dictionary<int, List<Vector2>>();
 	private Dictionary<int, double> islandHeights = new Dictionary<int, double>();
 	private int islandID = 0;
+	private Vector2 mousePressPosition;
+	private int guesses = 3;
+	private bool gameOver = false;
+	private ColorRect redSquare;
+	private ColorRect greenSquare;
+	private ColorRect selectedSquare;
+	private Timer flashTimer;
+	private Label guessCounter;
+	private bool blockedInput = false;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -19,12 +28,31 @@ public partial class GameScene : Node2D
 		httpRequest.RequestCompleted += HttpRequestCompleted;
 		httpRequest.Request("https://jobfair.nordeus.com/jf24-fullstack-challenge/test");	
 		tileMapLayer = GetNode<TileMapLayer>("TileMapLayer");
+		redSquare = GetNode<ColorRect>("Red");
+		greenSquare = GetNode<ColorRect>("Green");
+		flashTimer = GetNode<Timer>("FlashTimer");
+		guessCounter = GetNode<Label>("GuessCounter");
+		
+		redSquare.Visible = false;
+		greenSquare.Visible = false;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (guesses == 0 && !gameOver && !redSquare.Visible && !greenSquare.Visible){
+			gameOver = true;
+			gameOverState(false);
+		}
 		
+		else{
+			if (Input.IsActionJustPressed("mouse_click") && !blockedInput)
+			{
+				mousePressPosition = GetLocalMousePosition();
+				selectIsland(Mathf.Floor(mousePressPosition.X/64), Mathf.Floor(mousePressPosition.Y/64));
+			}
+		}	
+		guessCounter.Text = ""+ guesses;	
 	}
 	
 	private void HttpRequestCompleted(long result, long responseCode, string[] headers, byte[] body){
@@ -138,7 +166,6 @@ public partial class GameScene : Node2D
 				int newX = x + (int)dir.X;
 				int newY = y + (int)dir.Y;
 
-				// Check bounds and whether the new cell is land and unvisited
 				if (newX >= 0 && newX < mapArray.GetLength(0) && newY >= 0 && newY < mapArray.GetLength(1)
 					&& mapArray[newX, newY] > 0 && !visited[newX, newY])
 				{
@@ -150,5 +177,57 @@ public partial class GameScene : Node2D
 				}
 			}
 		}	
+	}
+	
+	private void selectIsland(float x, float y){
+		foreach (int islandID in islands.Keys){
+			if(islands[islandID].Contains(new Vector2(Convert.ToInt32(x), Convert.ToInt32(y))))
+			{
+				GD.Print($"You've selected Island {islandID}");
+				if(isTallest(islandID)){
+					greenSquare.Visible = true;
+					blockedInput = true;
+					selectedSquare = greenSquare;
+					gameOver = true;
+					flashTimer.Start();	
+				}
+				else{
+					GD.Print("That one is NOT the tallest!");
+					redSquare.Visible = true;
+					selectedSquare = redSquare;
+					blockedInput = true;
+					flashTimer.Start();
+				}
+				guesses--;
+				GD.Print(guesses);
+			}
+		}
+	}
+	
+	private bool isTallest(int selectedIslandID){
+		foreach (int islandID in islandHeights.Keys){
+			if(islandHeights[islandID] > islandHeights[selectedIslandID])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void gameOverState(bool win){
+		if(win){
+			GetTree().ChangeSceneToFile("scenes/WinScene.tscn");
+		}
+		else{
+			GetTree().ChangeSceneToFile("scenes/LoseScene.tscn");
+		}
+	}
+	
+	private void _on_flash_timer_timeout(){
+		selectedSquare.Visible = false;
+		blockedInput = false;
+		if(selectedSquare == greenSquare){
+			gameOverState(true);
+		}
 	}
 }

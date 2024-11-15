@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/GameScene.cs" id="1_eivpb"]
 [ext_resource type="Texture2D" uid="uid://1k6h5gnr2215" path="res://assets/tileset.png" id="2_synfj"]
-[ext_resource type="Texture2D" uid="uid://c2jv6l2cmngxp" path="res://assets/debug_tileset.png" id="3_vt121"]
+[ext_resource type="Texture2D" uid="uid://dda5gdv43tuhr" path="res://assets/ship-mosaic-export4.png" id="4_y40cv"]
+[ext_resource type="FontFile" uid="uid://tck7812hal3b" path="res://assets/fonts/ca.ttf" id="5_db68l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v6cbu"]
 texture = ExtResource("2_synfj")
@@ -14,28 +15,80 @@ texture_region_size = Vector2i(64, 64)
 4:0/0 = 0
 5:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tjk11"]
-texture = ExtResource("3_vt121")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-
 [sub_resource type="TileSet" id="TileSet_cesry"]
 tile_size = Vector2i(64, 64)
 sources/2 = SubResource("TileSetAtlasSource_v6cbu")
-sources/3 = SubResource("TileSetAtlasSource_tjk11")
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_eivpb")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(963, 930)
-zoom = Vector2(0.6, 0.35)
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -3306.0
+offset_top = -1361.0
+offset_right = 5231.0
+offset_bottom = 3414.0
+texture = ExtResource("4_y40cv")
+stretch_mode = 4
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAABAAAAAgAAAAAAAAACAAAAAgAAAAAAAAADAAAAAgAAAAAAAAAEAAAAAgAAAAAAAAAFAAAAAgAAAAAAAAAGAAAAAgAAAAAAAAAHAAAAAgAAAAAAAAAIAAAAAgAAAAAAAAAJAAAAAgAAAAAAAAAKAAAAAgAAAAAAAAALAAAAAgAAAAAAAAAMAAAAAgAAAAAAAAANAAAAAgAAAAAAAAAOAAAAAgAAAAAAAAAPAAAAAgAAAAAAAAAQAAAAAgAAAAAAAAARAAAAAgAAAAAAAAASAAAAAgAAAAAAAAATAAAAAgAAAAAAAAAUAAAAAgAAAAAAAAAVAAAAAgAAAAAAAAAWAAAAAgAAAAAAAAAXAAAAAgAAAAAAAAAYAAAAAgAAAAAAAAAZAAAAAgAAAAAAAAAaAAAAAgAAAAAAAAAbAAAAAgAAAAAAAAAcAAAAAgAAAAAAAAAdAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAYAAgAAAAAAAAAAAAcAAgAAAAAAAAAAAAgAAgAAAAAAAAAAAAkAAgAAAAAAAAAAAAoAAgAAAAAAAAAAAAsAAgAAAAAAAAAAAAwAAgAAAAAAAAAAAA0AAgAAAAAAAAAAAA4AAgAAAAAAAAAAAA8AAgAAAAAAAAAAABAAAgAAAAAAAAAAABEAAgAAAAAAAAAAABIAAgAAAAAAAAAAABMAAgAAAAAAAAAAABQAAgAAAAAAAAAAABUAAgAAAAAAAAAAABYAAgAAAAAAAAAAABcAAgAAAAAAAAAAABgAAgAAAAAAAAAAABkAAgAAAAAAAAAAABoAAgAAAAAAAAAAABsAAgAAAAAAAAAAABwAAgAAAAAAAAA=")
+z_index = 1
 tile_set = SubResource("TileSet_cesry")
+
+[node name="ReferenceLayer" type="TileMapLayer" parent="."]
+z_index = 1
+tile_map_data = PackedByteArray("AAAjAAwAAgABAAAAAAAjAA0AAgABAAAAAAAjAA4AAgACAAAAAAAjAA8AAgACAAAAAAAjABAAAgADAAAAAAAjABEAAgADAAAAAAAiAA0AAgABAAAAAAAiAAwAAgABAAAAAAAiAA4AAgACAAAAAAAiAA8AAgACAAAAAAAiABEAAgADAAAAAAAiABAAAgADAAAAAAAiABIAAgAEAAAAAAAjABIAAgAEAAAAAAAjABMAAgAEAAAAAAAiABMAAgAEAAAAAAAiABQAAgAFAAAAAAAiABUAAgAFAAAAAAAjABUAAgAFAAAAAAAjABQAAgAFAAAAAAA=")
+tile_set = SubResource("TileSet_cesry")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(959, 1174)
+zoom = Vector2(0.15, 0.15)
+
+[node name="Red" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.470588)
+z_index = 1
+offset_left = -521.0
+offset_right = 2530.0
+offset_bottom = 1920.0
+color = Color(1, 0, 0, 1)
+
+[node name="Green" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.470588)
+z_index = 1
+offset_left = -521.0
+offset_right = 2530.0
+offset_bottom = 1920.0
+color = Color(0, 1, 0, 1)
+
+[node name="FlashTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 2304.0
+offset_top = 752.0
+offset_right = 2511.0
+offset_bottom = 1448.0
+theme_override_constants/line_spacing = 65
+theme_override_fonts/font = ExtResource("5_db68l")
+theme_override_font_sizes/font_size = 64
+text = "0
+200
+400
+600
+800
+1000"
+horizontal_alignment = 1
+
+[node name="GuessCounter" type="Label" parent="."]
+offset_left = 3922.0
+offset_top = 816.0
+offset_right = 4129.0
+offset_bottom = 972.0
+theme_override_constants/line_spacing = 65
+theme_override_fonts/font = ExtResource("5_db68l")
+theme_override_font_sizes/font_size = 172
+text = "3
+"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

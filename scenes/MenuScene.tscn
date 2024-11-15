@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://v0xqsf8nxcyj"]
+
+[ext_resource type="Script" path="res://scripts/MenuScene.cs" id="1_m2t7f"]
+[ext_resource type="Texture2D" uid="uid://b7bo7tu1aopgu" path="res://assets/menu_new.jpg" id="1_s2vf6"]
+[ext_resource type="FontFile" uid="uid://tck7812hal3b" path="res://assets/fonts/ca.ttf" id="2_qwteo"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_m2t7f")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = -47.0
+offset_top = -28.0
+offset_right = 1008.0
+offset_bottom = 565.0
+texture = ExtResource("1_s2vf6")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = -605.0
+offset_top = 28.0
+offset_right = 1586.0
+offset_bottom = 520.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("2_qwteo")
+theme_override_font_sizes/font_size = 45
+text = "Crash landing"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer"]
+position = Vector2(481, 270)
+
+[node name="Play" type="Button" parent="CanvasLayer"]
+offset_left = 400.0
+offset_top = 264.0
+offset_right = 567.0
+offset_bottom = 333.0
+theme_override_fonts/font = ExtResource("2_qwteo")
+text = "PLAY"
+
+[node name="Exit" type="Button" parent="CanvasLayer"]
+offset_left = 402.0
+offset_top = 373.0
+offset_right = 569.0
+offset_bottom = 442.0
+theme_override_fonts/font = ExtResource("2_qwteo")
+text = "eXIT"
+
+[connection signal="pressed" from="CanvasLayer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Exit" to="." method="_on_exit_pressed"]

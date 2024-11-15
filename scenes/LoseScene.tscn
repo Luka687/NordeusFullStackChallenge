@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://d10s6fagoyc7u"]
+
+[ext_resource type="Script" path="res://scripts/GameOverScene.cs" id="1_e318v"]
+[ext_resource type="Texture2D" uid="uid://jojxmlen5sc5" path="res://assets/lost.jpg" id="2_6ifyo"]
+[ext_resource type="FontFile" uid="uid://tck7812hal3b" path="res://assets/fonts/ca.ttf" id="2_vkw7p"]
+
+[node name="LoseScene" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_e318v")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = -47.0
+offset_top = -28.0
+offset_right = 1008.0
+offset_bottom = 565.0
+texture = ExtResource("2_6ifyo")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = -604.0
+offset_top = 136.0
+offset_right = 1587.0
+offset_bottom = 628.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("2_vkw7p")
+theme_override_font_sizes/font_size = 28
+text = "Unfortunately,
+you were unsuccessfull in your attempts to 
+steer your ship to safety.
+
+it is only a matter of time before
+the humans find your wreckage and
+demand payment for all their stolen cows.
+
+press space to return to menu."
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer"]
+position = Vector2(481, 270)

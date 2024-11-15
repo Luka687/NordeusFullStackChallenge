@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2jv6l2cmngxp"
-path="res://.godot/imported/debug_tileset.png-f1e73e747cbc0bea59ab81c5cacf08d2.ctex"
+uid="uid://dda5gdv43tuhr"
+path="res://.godot/imported/ship-mosaic-export4.png-7fbe855c7f1147bd4f14cea9f0cc02f3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/debug_tileset.png"
-dest_files=["res://.godot/imported/debug_tileset.png-f1e73e747cbc0bea59ab81c5cacf08d2.ctex"]
+source_file="res://assets/ship-mosaic-export4.png"
+dest_files=["res://.godot/imported/ship-mosaic-export4.png-7fbe855c7f1147bd4f14cea9f0cc02f3.ctex"]
 
 [params]
 

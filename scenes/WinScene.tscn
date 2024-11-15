@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://djdijydgttee0"]
+
+[ext_resource type="Texture2D" uid="uid://cmn88bg7ldj6b" path="res://assets/victory.jpg" id="1_gq2ff"]
+[ext_resource type="Script" path="res://scripts/GameOverScene.cs" id="1_utags"]
+[ext_resource type="FontFile" uid="uid://tck7812hal3b" path="res://assets/fonts/ca.ttf" id="2_f8w0e"]
+
+[node name="WinScene" type="Node2D"]
+script = ExtResource("1_utags")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = -47.0
+offset_top = -28.0
+offset_right = 1008.0
+offset_bottom = 565.0
+texture = ExtResource("1_gq2ff")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = -597.0
+offset_top = 154.0
+offset_right = 1594.0
+offset_bottom = 646.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("2_f8w0e")
+theme_override_font_sizes/font_size = 28
+text = "Congratulations!
+
+You have successfully guided your ship 
+to safety.
+A rescue ship will be there to assist 
+you by daybreak.
+
+Press space to return to menu."
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer"]
+position = Vector2(481, 270)
